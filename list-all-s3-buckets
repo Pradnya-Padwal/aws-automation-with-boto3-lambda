@@ -1,0 +1,5 @@
+import boto3
+session = boto3.Session(profile_name="pra")
+s3_re_ob = session.resource('s3')
+for each_buc in s3_re_ob.buckets.all():
+    print(each_buc.name)
