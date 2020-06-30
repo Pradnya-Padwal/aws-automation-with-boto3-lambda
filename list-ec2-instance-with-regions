@@ -1,0 +1,13 @@
+import boto3 
+session = boto3.Session(profile_name="pra", region_name="us-east-1") 
+ec2_re = session.resource(service_name="ec2")
+ec2_cl = session.client(service_name="ec2") 
+print("Ec2 Instances with Resources")
+for ec2_ins in ec2_re.instances.all(): 
+    print(ec2_ins.id, ec2_ins.state['Name'])
+print("Instances information with Client")
+#print(ec2_cl.describe_instances()) 
+for ec2_in in ec2_cl.describe_instances()['Reservations']: 
+    for each_in in ec2_in['Instances']: 
+        print(each_in['InstanceId'], each_in['State']['Name'], each_in['ImageId']) 
+
