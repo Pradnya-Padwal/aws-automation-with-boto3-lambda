@@ -1,0 +1,11 @@
+import boto3
+s3 = boto3.client('s3')
+response = s3.list_buckets() #List down s3 buckets
+print(response)
+buckets = [bucket['Name'] for bucket in response['Buckets']]
+print("Bucket Name : %s" % buckets)
+s3.create_bucket(Bucket='xybuckneeel', CreateBucketConfiguration={'LocationConstraint': 'ap-south-1'}) //create s3 bucket in Mumbai region
+filename = 'sample.txt' #file that you want to upload
+s3.upload_file(filename, 'xybuckneeel', filename)
+s3.upload_file('sample.txt', 'my-sample-pradnya', 'sampleprad.txt') #upload file in s3 using client method
+s3.download_file('my-sample-pradnya', 'sampleprad.txt', 'bc.txt') #download file using client method
