@@ -1,0 +1,10 @@
+import boto3
+client = boto3.client(service_name='ec2', region_name='ap-south-1')
+res = client.run_instances(ImageId='ami-0447a12f28fddb066',
+                           InstanceType='t2.micro',
+                           MinCount=1,
+                           MaxCount=1)
+for instance in res['Instances']: #for list down instance
+    print(instance['InstanceId'])
+resp = client.stop_instances(InstanceIds=['i-0dbb34e6685ceb6b9'])
+re = client.start_instances(InstanceIds=['i-013c09f0b3bae9250'])
